@@ -18,7 +18,7 @@ const Form = ({currentId, setCurrentId})=>{
 
     });
     // we are going to fetch all the posts
-    const post= useSelector((state)=>currentId ? state.posts.find((p)=> p._id= currentId): null);
+    const post= useSelector((state)=>currentId ? state.posts.find((p)=> p._id=== currentId): null);   // ===
     
     const dispatch= useDispatch(); // this actually allows us to dispatch all actions. then go to handleSubmit
     const classes= useStyles();
@@ -26,20 +26,10 @@ const Form = ({currentId, setCurrentId})=>{
     // use useEffect to populates values of the Form
     useEffect(()=>{
         if (post) setPostData(post);
-    }, [post])
-    
-    const handleSubmit=async(e)=>{
-        e.preventDefault(); 
+    }, [post]);
 
-        if(currentId) {
-            dispatch(updatePost(currentId, postData));
-        }else{
-            dispatch(createPost(postData));
-        }   
-        clear();
-    } // then we go to reducers
     const clear=()=>{
-        setCurrentId(null);
+        setCurrentId(0);
         setPostData({
             creator:'',
             title: '',
@@ -47,7 +37,20 @@ const Form = ({currentId, setCurrentId})=>{
             tags: '',
             selectedFile: ''
         });
-    }
+    };
+    
+    const handleSubmit=async(e)=>{
+        e.preventDefault(); 
+
+        if (currentId === 0) {
+            dispatch(createPost(postData));
+            clear();
+          } else {
+            dispatch(updatePost(currentId, postData));
+            clear();
+          }
+    }; // then we go to reducers
+    
     
     return (
         <Paper className={classes.paper}>
