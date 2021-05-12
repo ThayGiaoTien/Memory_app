@@ -1,14 +1,14 @@
-import React , { useEffect, useState } from 'react';
-import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core'; //use for JSX structure
-import { useDispatch } from 'react-redux'; // this allows us to dispatch an action
+import React  from 'react';
+import { Container } from '@material-ui/core'; //use for JSX structure
+//import { useDispatch } from 'react-redux'; // this allows us to dispatch an action
 import { BrowserRouter, Switch, Route} from 'react-router-dom';
 
-import { getPosts } from './actions/posts';
-import memories from './images/memories.png';
-import Form from './components/Form/Form';
-import Posts from './components/Posts/Posts';
+//import { getPosts } from './actions/posts';
+//import memories from './images/memories.png';
+//import Form from './components/Form/Form';
+//import Posts from './components/Posts/Posts';
 
-import useStyles from './styles'; //use style to make web prettier
+//import useStyles from './styles'; //use style to make web prettier
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import Auth from './components/Auth/Auth';
