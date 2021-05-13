@@ -1,13 +1,34 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { AppBar, Typography, Toolbar, Button, Avatar} from '@material-ui/core';
 import useStyles from './styles';
 import memories from '../../images/memories.png';
-import {Link} from 'react-router-dom'; //use react router dom to make app multiple pages
+import {Link, useHistory, useLocation} from 'react-router-dom'; //use react router dom to make app multiple pages
 // go to the App.js and import {BrowserRouter, Switch, Route}
+import {useDispatch} from 'react-redux';
+
 
 const Navbar=()=>{
     const classes= useStyles(); 
-    const user= null; 
+    const dispatch= useDispatch();
+    const history= useHistory();
+    const [user, setUser]=useState(JSON.parse(localStorage.getItem('profile')));
+    console.log(user);
+    const location=useLocation(); //when location changes, simply set the user
+    
+    const logout=() =>{
+        dispatch({type: 'LOGOUT'});
+        history.push('/');
+
+        setUser(null); 
+    };
+
+    //change status from Sign In to User's profile
+    useEffect(()=>{
+        const token= user?.token;
+        // JWT...
+        setUser(JSON.parse(localStorage.getItem('profile')));
+    },[location]);
+    
     return (
         <AppBar className={classes.appBar} position='static' color='inherit'>
             <div className={classes.brandContainer}>
@@ -17,16 +38,16 @@ const Navbar=()=>{
             <Toolbar className={classes.brandContainer.toolbar}>
                 {user ? (
                     <div className={classes.profile}>
-                        <Avatar className={classes.purple} alt={user.result.name} src={user.results.imageUrl}></Avatar>
-                        <Typography className={classes.userName} variant='h6'>{user.results.name}</Typography>
-                        <Button variant='contained' className={classes.logout} color='secondary'>Log out</Button>
+                        <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl}></Avatar>
+                        <Typography className={classes.userName} variant='h6'>{user.result.name}</Typography>
+                        <Button variant='contained' className={classes.logout} color='secondary' onClick={logout}>Log out</Button>
                     </div>
                 ):(
-                    <Button component={Link} to='/auth'></Button>
+                    <Button component={Link} to='/auth' variant='contained' color='primary'>Log In</Button>
 
                 )}
             </Toolbar>
         </AppBar>
     );
 };
-export default Navbar
+export default Navbar;
