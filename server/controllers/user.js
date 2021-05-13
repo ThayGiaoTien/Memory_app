@@ -16,7 +16,7 @@ export const signin= async(req, res)=>{
         if(!isPasswordCorrect) return res.status(400).json({message:"Invalid password!"});
 
         // Creat token by jwt.sign ( in here, result is existingUser, so we don't need to create result)
-        const token= jwt.sign({email:existingUser.email, id: existingUser._id}, test, {expiresIn: "1h"});
+        const token= jwt.sign({email:existingUser.email, id: existingUser._id}, 'test', {expiresIn: "1h"}); //'test' is secret key
 
         //return the existing user and token
         res.status(200).json({result: existingUser, token});
@@ -48,4 +48,4 @@ export const signup = async(req, res)=>{
         res.status(500).json({message: 'Fuck! Something went wrong!'});
 
     }
-};
+}; 
