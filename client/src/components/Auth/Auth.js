@@ -6,10 +6,13 @@ import useStyles from './styles';
 import Icon from './icon';
 import { useDispatch } from 'react-redux';
 import {useHistory} from 'react-router-dom'; //change direct immediately
+import {signin, signup} from '../../actions/auth';
 
 
 
 import Input from './input'; //make our app more dynamically
+
+const initialState={ firstName:'', lastName:'', email:'', password:'', confirmPassword:''};
 
 const Auth = () => {
     const classes= useStyles();
@@ -18,12 +21,19 @@ const Auth = () => {
     const dispatch= useDispatch();
     const history= useHistory();
 
-
-    const handleChange=()=>{
+    const [formData, setFormData]= useState(initialState);
+    
+    const handleChange=(e)=>{
         
     };
     
-    const handleSubmit=()=>{
+    const handleSubmit=(e)=>{
+        e.preventDefault();
+        if(isSignup){
+            dispatch(signup(formData, history)); //add history to navigate when something is happened
+        } else {
+            dispatch(signin(formData, history));
+        }
 
     };
     const handleShowPassword=()=>setShowPassword((prevShowPassword)=>!prevShowPassword); //toggling it= turn on/off
