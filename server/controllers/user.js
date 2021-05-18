@@ -3,12 +3,14 @@ import jwt from 'jsonwebtoken'; //store the users in a browser for some period o
 
 import User from '../models/user.js';
 
+
 export const signin= async(req, res)=>{
     // Get the email and password from Form(frontent)
     const {email, password}= req.body;
+    console.log({email});
     try{
         // Check user is existing by emial
-        const existingUser= await User.findOne(email);
+        const existingUser= await User.findOne({ email });
         if(!existingUser) return res.status(404).json({message:"User dosen't exist!"});
 
         // Check is correcting password comparing using bcrypt
@@ -32,7 +34,8 @@ export const signup = async(req, res)=>{
     const {email, password, confirmPassword, firstName, lastName } = req.body;
     try{
         // Check if user is exists
-        const existingUser= await User.findOne(email);
+        const existingUser= await User.findOne({ 
+            email });
         if (existingUser) return res.status(400).json({message: "User already exists."});
         // Check if confirmPassword is not correct
         if(password!==confirmPassword) return res.status(400).json({message: "Password is incorrect."});
@@ -40,9 +43,9 @@ export const signup = async(req, res)=>{
         const hashedPassword= await bcrypt.hash(password, 12); // salt=12
         // Creat result and token
         const result= await User.create({email, password: hashedPassword, name:`${firstName} ${lastName}`});
-        const token= await jwt.sign({email:existingUser.email, id: existingUser._id}, test, {expiresIn: "1h"});
+        const token=  jwt.sign({email:result.email, id: result._id}, 'test', {expiresIn: "1h"});
         // Return result and token
-        res.status(200).json({result, token});
+        res.status(201).json({result, token});
 
     } catch(error){
         res.status(500).json({message: 'Fuck! Something went wrong!'});

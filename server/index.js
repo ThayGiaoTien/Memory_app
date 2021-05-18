@@ -3,7 +3,7 @@ import cors from 'cors';
 import mongoose from 'mongoose'; 
 import bodyParse from 'body-parser';
 import postRoutes from './routes/posts.js';
-import userRoutes from './routes/user.js';
+import userRoutes from './routes/users.js';
 
 
 // setup index.js 

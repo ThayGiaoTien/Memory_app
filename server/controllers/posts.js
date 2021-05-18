@@ -66,7 +66,7 @@ export const likePost= async (req, res)=>{
         post.likes= post.likes.filter((id)=>id!==String(req.userId));
     }
     
-    const updatedPost= await PostMessage.findByIdAndUpdate(id, likes, {new: true});    // oke! let's move on to the front end to complete JWT login frontend
+    const updatedPost= await PostMessage.findByIdAndUpdate(id, post , {new: true});    // oke! let's move on to the front end to complete JWT login frontend
     res.json(updatedPost);
 }
 

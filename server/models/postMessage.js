@@ -12,11 +12,11 @@ const postSchema= mongoose.Schema({
     },*/
     likes:{
         type:[String],
-        default: []
+        default: [],
     },
     createdAt:{
         type: Number,
-        default: new Date()
+        default: new Date(),
     },
 });
 const PostMessage= mongoose.model('PostMessage', postSchema);

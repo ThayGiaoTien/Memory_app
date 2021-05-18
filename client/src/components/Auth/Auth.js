@@ -10,11 +10,12 @@ import {signin, signup} from '../../actions/auth';
 
 
 
-import Input from './input'; //make our app more dynamically
+import Input from './Input'; //make our app more dynamically
 
 const initialState={ firstName:'', lastName:'', email:'', password:'', confirmPassword:''};
 
 const Auth = () => {
+    
     const classes= useStyles();
     const [showPassword, setShowPassword]= useState(false);
     const [isSignup, setIsSignup]= useState(false);
@@ -23,12 +24,11 @@ const Auth = () => {
 
     const [formData, setFormData]= useState(initialState);
     
-    const handleChange=(e)=>{
-        
-    };
+    const handleChange=(e)=>setFormData({...formData, [e.target.name]: e.target.value});   // I already forgot about it. So i can't sent data input to the server
     
     const handleSubmit=(e)=>{
         e.preventDefault();
+        console.log(formData);
         if(isSignup){
             dispatch(signup(formData, history)); //add history to navigate when something is happened
         } else {
@@ -84,7 +84,7 @@ const Auth = () => {
                             )
                         }
                     </Grid>
-                    <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
+                    <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit} >
                         {isSignup? 'Sign Up' : 'Sign In'}
                     </Button>
                     <GoogleLogin 
