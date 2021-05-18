@@ -5,6 +5,7 @@ import memories from '../../images/memories.png';
 import {Link, useHistory, useLocation} from 'react-router-dom'; //use react router dom to make app multiple pages
 // go to the App.js and import {BrowserRouter, Switch, Route}
 import {useDispatch} from 'react-redux';
+import decode from 'jwt-decode';
 
 
 const Navbar=()=>{
@@ -25,7 +26,10 @@ const Navbar=()=>{
     //change status from Sign In to User's profile
     useEffect(()=>{
         const token= user?.token;
-        // JWT...
+        if(token){
+            const decodedToken=decode(token);
+            if(decodedToken.exp*1000< new Date().getTime()) logout();
+        }
         setUser(JSON.parse(localStorage.getItem('profile')));
     },[location]);
     
