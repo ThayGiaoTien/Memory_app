@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const postSchema= mongoose.Schema({
     title: String,
     message: String,
+    name: String,
     creator: String,
     tags: [String],
     selectedFile: String, 
@@ -15,10 +16,10 @@ const postSchema= mongoose.Schema({
         default: [],
     },
     createdAt:{
-        type: Number,
+        type: Date,
         default: new Date(),
     },
 });
-const PostMessage= mongoose.model('PostMessage', postSchema);
+var PostMessage= mongoose.model('PostMessage', postSchema);
 
 export default PostMessage;

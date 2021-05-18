@@ -15,11 +15,12 @@ import useStyles from './styles'    //import from file styles.js
 const Post = ({post, setCurrentId})=>{
     const dispatch= useDispatch();
     const classes= useStyles();
+    const user = JSON.parse(localStorage.getItem('profile'));
     return (
         <Card className={classes.card}>
             <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
             <div className={classes.overlay}>
-                <Typography variant='h6' > {post.creator}</Typography>
+                <Typography variant='h6' > {post.name}</Typography>
                 <Typography variant='body2' > {moment(post.createdAt).fromNow()}</Typography>
             </div>
             <div className={classes.overlay2}>
