@@ -14,6 +14,24 @@ export const getPosts= async (req, res)=>{
     }
 }
 
+//Query ->/posts?page=1 ->page=1 we use query when we want to query some data like search
+//Params -> /posts/id-> posts/123 we use param when we want to fetch some specific resources
+
+export const getPostsBySearch =async(req, res)=>{
+    const {searchQuery, tags } =req.query;
+    
+    try{
+
+        // find by title or post
+        const title= new RegExp(searchQuery, 'i'); //i -ignore, exp: Test, TEST, test => test
+        //fetch Post by seach key from database
+        const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
+        //send to frontene
+        res.json({data: posts});
+    } catch(error){
+        res.status(404).json({message: error.message});
+    }
+}
 export const getPost= async (req, res)=>{
     const {id}= req.params;
     try{

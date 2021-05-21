@@ -13,7 +13,7 @@ const Navbar=()=>{
     const dispatch= useDispatch();
     const history= useHistory();
     const [user, setUser]=useState(JSON.parse(localStorage.getItem('profile')));
-    console.log(user);
+    
     const location=useLocation(); //when location changes, simply set the user
     
     const logout=() =>{
