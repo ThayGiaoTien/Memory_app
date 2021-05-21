@@ -6,7 +6,7 @@ import Paginate from '../Pagination';
 import {getPosts, getPostsBySearch} from '../../actions/posts';
 import { useDispatch } from 'react-redux';
 import {useLocation, useHistory} from 'react-router-dom';
-import App from '../../App';
+//import App from '../../App';
 import useStyles from './styles';
 import ChipInput from 'material-ui-chip-input';
 
@@ -24,9 +24,10 @@ const Home= ()=>{
     const [search, setSearch]= useState('');
     const [tags, setTags]= useState([]);     
 
-    useEffect(()=>{
+    //remove useEffect and pass our page straight to our Pagination as prop
+    /*useEffect(()=>{
         dispatch(getPosts());
-    },[currentId, dispatch]);
+    },[currentId, dispatch]);*/ 
     
     const searchPost=()=>{
         if(search.trim() || tags){
@@ -79,7 +80,7 @@ const Home= ()=>{
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId}/>
                         <Paper elevation={6}>
-                            <Paginate/>
+                            <Paginate page={page}/>
                         </Paper>
                     </Grid>
                 </Grid>
