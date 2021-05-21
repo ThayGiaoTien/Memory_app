@@ -46,12 +46,12 @@ const Post = ({post, setCurrentId})=>{
                 </div>
             )}
             <div className={classes.details}>
-                <Typography variant='body2' color='textSecondary' > #{post.tags}</Typography>
+                <Typography variant='body2' color='textSecondary' component='h2' > {post.tags.map((tag)=>`#${tag} `)}</Typography>
             </div>
             <Typography className={classes.title} variant='h5'>{post.title}</Typography>
             <CardContent>
                 
-                <Typography  variant='h6' gutterBottom>{post.message}</Typography>
+                <Typography  variant='body2' color='textSecondary' component='p'>{post.message}</Typography>
             </CardContent>
             <CardActions className={classes.carActions}>
                 <Button size='small' color='primary' onClick={()=>dispatch(likePost(post._id))}>
