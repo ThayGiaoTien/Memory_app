@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from './styles';
 import {createPost, updatePost} from '../../actions/posts';
+import {useHistory} from 'react-router-dom';
 
 // Get the current id of the post 
 const Form = ({currentId, setCurrentId})=>{
@@ -16,8 +17,9 @@ const Form = ({currentId, setCurrentId})=>{
         selectedFile: ''
 
     });
+    const history= useHistory();
     // we are going to fetch all the posts
-    const post= useSelector((state)=>currentId ? state.posts.find((message)=> message._id=== currentId): null);   // ===
+    const post= useSelector((state)=>currentId ? state.posts.posts.find((message)=> message._id=== currentId): null);   // [post]=> {post}
     
     const dispatch= useDispatch(); // this actually allows us to dispatch all actions. then go to handleSubmit
     const classes= useStyles();
@@ -38,7 +40,7 @@ const Form = ({currentId, setCurrentId})=>{
         e.preventDefault();
     
         if (currentId === 0) {
-          dispatch(createPost({ ...postData, name: user?.result?.name }));
+          dispatch(createPost({ ...postData, name: user?.result?.name }, history));
           console.log({...postData, name: user?.result?.name});
           clear();
         } else {

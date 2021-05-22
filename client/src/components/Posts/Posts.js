@@ -11,8 +11,8 @@ const Posts = ({setCurrentId})=>{
     const {posts, isLoading}= useSelector((state)=> state.posts); // [] ==>{}  posts= action.payload which includes posts, currentPage, numberOfPage
 
     const classes= useStyles();
-    console.log(posts);
-    //if(!posts && !isLoading) return "No posts!";
+    
+    if(!posts && !isLoading) return "No posts!";
     return (
         isLoading?  <CircularProgress /> : (                                          // put ?. to ensure not through an error if we have no posts
             <Grid className= {classes.container} container alignItems='stretch' spacing={3} >
